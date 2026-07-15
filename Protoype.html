@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototipe Web Operasional - MFC Petung</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        amber: {
+                            600: '#d97706',
+                            700: '#b45309',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-100 font-sans min-h-screen flex flex-col">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-navy-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-amber-600 p-2.5 rounded-lg text-white font-bold text-xl tracking-wider shadow">
+                    MFC
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold">MFC PETUNG</h1>
+                    <p class="text-xs text-slate-400">Sistem Digitalisasi Operasional Terpadu</p>
+                </div>
+            </div>
+            
+            <!-- Tab Buttons -->
+            <nav class="flex bg-slate-800 p-1 rounded-lg">
+                <button onclick="switchTab('pos')" id="btn-pos" class="px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 bg-amber-600 text-white">
+                    <i class="fa-solid fa-cash-register mr-2"></i>Sisi Kasir (Internal POS)
+                </button>
+                <button onclick="switchTab('online')" id="btn-online" class="px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-hamburger mr-2"></i>Sisi Pelanggan (Online Order)
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6">
+
+        <!-- TAB 1: SISI KASIR (INTERNAL POS) -->
+        <section id="tab-pos" class="space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left: Grid Menu -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h2 class="text-lg font-bold text-slate-800 mb-4"><i class="fa-solid fa-grip mr-2 text-amber-600"></i>Pilih Menu Varian Ayam</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <!-- Menu Items -->
+                        <button onclick="addToCart('Dada Crispy', 15000)" class="group bg-slate-50 hover:bg-amber-50 p-4 rounded-xl border border-slate-200 hover:border-amber-600 transition text-left focus:outline-none">
+                            <span class="block text-2xl mb-2">🍗</span>
+                            <span class="font-bold text-slate-800 block text-sm group-hover:text-amber-700">Dada Crispy</span>
+                            <span class="text-xs text-slate-500 block">Rp 15.000</span>
+                        </button>
+                        <button onclick="addToCart('Paha Atas Crispy', 14000)" class="group bg-slate-50 hover:bg-amber-50 p-4 rounded-xl border border-slate-200 hover:border-amber-600 transition text-left focus:outline-none">
+                            <span class="block text-2xl mb-2">🍗</span>
+                            <span class="font-bold text-slate-800 block text-sm group-hover:text-amber-700">Paha Atas Crispy</span>
+                            <span class="text-xs text-slate-500 block">Rp 14.000</span>
+                        </button>
+                        <button onclick="addToCart('Paha Bawah Crispy', 13000)" class="group bg-slate-50 hover:bg-amber-50 p-4 rounded-xl border border-slate-200 hover:border-amber-600 transition text-left focus:outline-none">
+                            <span class="block text-2xl mb-2">🍗</span>
+                            <span class="font-bold text-slate-800 block text-sm group-hover:text-amber-700">Paha Bawah Crispy</span>
+                            <span class="text-xs text-slate-500 block">Rp 13.000</span>
+                        </button>
+                        <button onclick="addToCart('Sayap Crispy', 12000)" class="group bg-slate-50 hover:bg-amber-50 p-4 rounded-xl border border-slate-200 hover:border-amber-600 transition text-left focus:outline-none">
+                            <span class="block text-2xl mb-2">🪽</span>
+                            <span class="font-bold text-slate-800 block text-sm group-hover:text-amber-700">Sayap Crispy</span>
+                            <span class="text-xs text-slate-500 block">Rp 12.000</span>
+                        </button>
+                        <button onclick="addToCart('Nasi Putih', 5000)" class="group bg-slate-50 hover:bg-amber-50 p-4 rounded-xl border border-slate-200 hover:border-amber-600 transition text-left focus:outline-none">
+                            <span class="block text-2xl mb-2">🍚</span>
+                            <span class="font-bold text-slate-800 block text-sm group-hover:text-amber-700">Nasi Putih</span>
+                            <span class="text-xs text-slate-500 block">Rp 5.000</span>
+                        </button>
+                        <button onclick="addToCart('Es Teh Manis', 5000)" class="group bg-slate-50 hover:bg-amber-50 p-4 rounded-xl border border-slate-200 hover:border-amber-600 transition text-left focus:outline-none">
+                            <span class="block text-2xl mb-2">🥤</span>
+                            <span class="font-bold text-slate-800 block text-sm group-hover:text-amber-700">Es Teh Manis</span>
+                            <span class="text-xs text-slate-500 block">Rp 5.000</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Cart & Payment Calculator -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between space-y-6">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800 mb-4"><i class="fa-solid fa-shopping-cart mr-2 text-amber-600"></i>Detail Pesanan</h2>
+                        <!-- Cart List -->
+                        <div id="cart-items" class="space-y-3 max-h-60 overflow-y-auto mb-4 pr-1">
+                            <p class="text-slate-400 text-sm text-center py-6">Keranjang masih kosong.</p>
+                        </div>
+                        <hr class="border-slate-200 my-4" />
+                        <!-- Pricing Details -->
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-slate-600 text-sm">
+                                <span>Subtotal</span>
+                                <span id="pos-subtotal">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between text-slate-800 font-bold text-lg">
+                                <span>Total Belanja</span>
+                                <span id="pos-total" class="text-amber-600">Rp 0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Calculator -->
+                    <div class="space-y-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Uang Tunai Pelanggan (Rp)</label>
+                            <input oninput="calculateChange()" type="number" id="pos-cash" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-lg font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-600" placeholder="0">
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-semibold text-slate-600">Kembalian:</span>
+                            <span id="pos-change" class="text-xl font-extrabold text-slate-800">Rp 0</span>
+                        </div>
+                        <div id="pos-alert" class="hidden bg-red-100 text-red-700 text-xs font-bold p-2.5 rounded-lg text-center">
+                            ⚠️ Uang Kurang!
+                        </div>
+                        <button onclick="saveTransaction()" class="w-full bg-navy-900 hover:bg-slate-800 text-white font-bold py-3 rounded-lg transition shadow">
+                            <i class="fa-solid fa-save mr-2"></i>Simpan & Log Transaksi
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Transaction Log Table -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 mb-4"><i class="fa-solid fa-file-invoice-dollar mr-2 text-amber-600"></i>Digital Transaction Log (Riwayat Hari Ini)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600 font-bold">
+                                <th class="p-3 rounded-l-lg">ID Transaksi</th>
+                                <th class="p-3">Waktu</th>
+                                <th class="p-3">Item Pesanan</th>
+                                <th class="p-3">Total Belanja</th>
+                                <th class="p-3">Uang Bayar</th>
+                                <th class="p-3 rounded-r-lg">Uang Kembalian</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pos-log" class="divide-y divide-slate-100">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: SISI PELANGGAN (ONLINE ORDER) -->
+        <section id="tab-online" class="hidden space-y-6 max-w-3xl mx-auto">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <div class="text-center pb-4 border-b border-slate-100">
+                    <h2 class="text-xl font-bold text-slate-800"><i class="fa-solid fa-shopping-basket text-amber-600 mr-2"></i>Form Pemesanan Online MFC Petung</h2>
+                    <p class="text-sm text-slate-500">Isi data pengantaran dan nikmati kemudahan tanpa antre</p>
+                </div>
+
+                <!-- Step 1: Menu Selection -->
+                <div class="space-y-3">
+                    <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider"><i class="fa-solid fa-check-square mr-2 text-amber-600"></i>Pilih Menu</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-600 transition">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xl">🍗</span>
+                                <div>
+                                    <span class="font-bold text-slate-800 text-sm block">Dada Crispy</span>
+                                    <span class="text-xs text-slate-500">Rp 15.000</span>
+                                </div>
+                            </div>
+                            <input type="number" id="qty-dada" min="0" value="0" onchange="calculateOnlineTotal()" class="w-16 bg-white border border-slate-300 rounded text-center font-semibold py-1 focus:outline-none focus:border-amber-600">
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-600 transition">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xl">🍗</span>
+                                <div>
+                                    <span class="font-bold text-slate-800 text-sm block">Paha Atas Crispy</span>
+                                    <span class="text-xs text-slate-500">Rp 14.000</span>
+                                </div>
+                            </div>
+                            <input type="number" id="qty-paha" min="0" value="0" onchange="calculateOnlineTotal()" class="w-16 bg-white border border-slate-300 rounded text-center font-semibold py-1 focus:outline-none focus:border-amber-600">
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-600 transition">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xl">🪽</span>
+                                <div>
+                                    <span class="font-bold text-slate-800 text-sm block">Sayap Crispy</span>
+                                    <span class="text-xs text-slate-500">Rp 12.000</span>
+                                </div>
+                            </div>
+                            <input type="number" id="qty-sayap" min="0" value="0" onchange="calculateOnlineTotal()" class="w-16 bg-white border border-slate-300 rounded text-center font-semibold py-1 focus:outline-none focus:border-amber-600">
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-slate-50 border border-slate-200 rounded-xl hover:border-amber-600 transition">
+                            <div class="flex items-center gap-3">
+                                <span class="text-xl">🥤</span>
+                                <div>
+                                    <span class="font-bold text-slate-800 text-sm block">Es Teh Manis</span>
+                                    <span class="text-xs text-slate-500">Rp 5.000</span>
+                                </div>
+                            </div>
+                            <input type="number" id="qty-esteh" min="0" value="0" onchange="calculateOnlineTotal()" class="w-16 bg-white border border-slate-300 rounded text-center font-semibold py-1 focus:outline-none focus:border-amber-600">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Delivery Address Form -->
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider"><i class="fa-solid fa-map-location-dot mr-2 text-amber-600"></i>Data Pengiriman</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nama Penerima</label>
+                            <input type="text" id="cust-name" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-600" placeholder="Contoh: Rafi Gunawan">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">No. WhatsApp</label>
+                            <input type="text" id="cust-wa" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-600" placeholder="Contoh: 0812xxxxxxxx">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Alamat Lengkap Pengiriman (Kec. Penajam/Giri Mukti)</label>
+                            <textarea id="cust-address" rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-600" placeholder="Masukkan nama jalan, nomor rumah, atau detail daerah sekitar Petung..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receipt Summary (Computed in Web) -->
+                <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs font-bold text-amber-800 uppercase block">Total Pembayaran</span>
+                        <span id="online-total" class="text-2xl font-black text-amber-700">Rp 0</span>
+                    </div>
+                    <button onclick="processOnlineCheckout()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Checkout & Kirim Pesanan
+                    </button>
+                </div>
+            </div>
+
+            <!-- Receipt Modal (Virtual Database Simulation) -->
+            <div id="receipt-modal" class="hidden bg-emerald-50 border border-emerald-200 rounded-2xl p-6 shadow-sm space-y-4">
+                <div class="flex items-center gap-2 text-emerald-800">
+                    <i class="fa-solid fa-circle-check text-xl"></i>
+                    <h4 class="font-bold">Pesanan Sukses Disimpan ke Database Sistem!</h4>
+                </div>
+                <div class="text-sm text-slate-700 space-y-2">
+                    <p><strong>Kode Pesanan Unik:</strong> <span id="rec-code" class="bg-emerald-100 px-2 py-0.5 rounded font-mono font-bold text-emerald-800"></span></p>
+                    <p><strong>Penerima:</strong> <span id="rec-name"></span></p>
+                    <p><strong>Alamat:</strong> <span id="rec-addr"></span></p>
+                </div>
+                <div class="bg-white p-3.5 rounded-lg border border-slate-200 text-xs font-mono text-slate-600">
+                    <strong>Pesan yang akan terkirim ke WhatsApp MFC Petung:</strong>
+                    <p id="whatsapp-preview-text" class="mt-2 text-slate-800 bg-slate-50 p-2 rounded whitespace-pre-line"></p>
+                </div>
+                <div class="flex gap-3">
+                    <a id="btn-wa-redirect" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold py-2.5 px-5 rounded-lg inline-flex items-center gap-2 shadow">
+                        <i class="fa-brands fa-whatsapp text-base"></i> Buka WhatsApp & Kirim Sekarang
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy-900 text-slate-400 py-4 text-center text-xs mt-12 border-t border-slate-800">
+        <p>© 2026 MFC Petung - Dibuat oleh Kelompok 1 Mata Kuliah Bisnis Informatika (Universitas Gunadarma)</p>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPT -->
+    <script>
+        // Global State
+        let currentTab = 'pos';
+        let cart = [];
+        let transactions = [
+            { id: 'TX-2026071501', time: '19:20', items: 'Dada Crispy (1), Nasi Putih (1)', total: 20000, cash: 50000, change: 30000 }
+        ];
+
+        // Initial logs loading
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTransactions();
+        });
+
+        // Tab Switching function
+        function switchTab(tab) {
+            currentTab = tab;
+            const posSec = document.getElementById('tab-pos');
+            const onlineSec = document.getElementById('tab-online');
+            const btnPos = document.getElementById('btn-pos');
+            const btnOnline = document.getElementById('btn-online');
+
+            if (tab === 'pos') {
+                posSec.classList.remove('hidden');
+                onlineSec.classList.add('hidden');
+                btnPos.className = "px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 bg-amber-600 text-white";
+                btnOnline.className = "px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-300 hover:text-white";
+            } else {
+                posSec.classList.add('hidden');
+                onlineSec.classList.remove('hidden');
+                btnPos.className = "px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 text-slate-300 hover:text-white";
+                btnOnline.className = "px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 bg-amber-600 text-white";
+            }
+        }
+
+        // Add Item to POS Cart
+        function addToCart(name, price) {
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ name, price, qty: 1 });
+            }
+            renderCart();
+            calculatePOS();
+        }
+
+        // Render Cart View
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 text-sm text-center py-6">Keranjang masih kosong.</p>`;
+                return;
+            }
+
+            container.innerHTML = cart.map((item, index) => `
+                <div class="flex justify-between items-center bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                    <div>
+                        <span class="font-bold text-slate-800 text-sm block">${item.name}</span>
+                        <span class="text-xs text-slate-500">Rp ${item.price.toLocaleString('id-ID')} x ${item.qty}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="updateQty(${index}, -1)" class="w-6 h-6 bg-slate-200 hover:bg-slate-300 rounded font-bold text-xs">-</button>
+                        <span class="text-sm font-bold text-slate-800">${item.qty}</span>
+                        <button onclick="updateQty(${index}, 1)" class="w-6 h-6 bg-slate-200 hover:bg-slate-300 rounded font-bold text-xs">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update Cart Quantity
+        function updateQty(index, change) {
+            cart[index].qty += change;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            renderCart();
+            calculatePOS();
+        }
+
+        // Calculate POS Totals
+        let currentTotal = 0;
+        function calculatePOS() {
+            currentTotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('pos-subtotal').innerText = `Rp ${currentTotal.toLocaleString('id-ID')}`;
+            document.getElementById('pos-total').innerText = `Rp ${currentTotal.toLocaleString('id-ID')}`;
+            calculateChange();
+        }
+
+        // Calculate Cashier Change (0% Error math)
+        function calculateChange() {
+            const cashInput = document.getElementById('pos-cash').value;
+            const cash = parseInt(cashInput) || 0;
+            const changeElement = document.getElementById('pos-change');
+            const alertElement = document.getElementById('pos-alert');
+
+            if (cash === 0) {
+                changeElement.innerText = "Rp 0";
+                alertElement.classList.add('hidden');
+                return;
+            }
+
+            const change = cash - currentTotal;
+            if (change < 0) {
+                changeElement.innerText = "Rp 0";
+                alertElement.classList.remove('hidden');
+            } else {
+                changeElement.innerText = `Rp ${change.toLocaleString('id-ID')}`;
+                alertElement.classList.add('hidden');
+            }
+        }
+
+        // Save Cashier Transaction and Log
+        function saveTransaction() {
+            const cashInput = document.getElementById('pos-cash').value;
+            const cash = parseInt(cashInput) || 0;
+
+            if (cart.length === 0) {
+                alert("Keranjang masih kosong!");
+                return;
+            }
+            if (cash < currentTotal) {
+                alert("Uang pembayaran tidak mencukupi!");
+                return;
+            }
+
+            const id = 'TX-' + new Date().toISOString().slice(0,10).replace(/-/g,"") + String(transactions.length + 1).padStart(2, '0');
+            const time = new Date().toTimeString().slice(0, 5);
+            const itemsText = cart.map(item => `${item.name} (${item.qty})`).join(', ');
+            const change = cash - currentTotal;
+
+            transactions.unshift({ id, time, items: itemsText, total: currentTotal, cash, change });
+            
+            // Reset POS State
+            cart = [];
+            document.getElementById('pos-cash').value = '';
+            renderCart();
+            calculatePOS();
+            renderTransactions();
+            alert("Transaksi Berhasil disimpan!");
+        }
+
+        // Render Transaction Logs Table
+        function renderTransactions() {
+            const container = document.getElementById('pos-log');
+            container.innerHTML = transactions.map(tx => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-3 font-mono font-bold text-slate-800">${tx.id}</td>
+                    <td class="p-3 text-slate-500">${tx.time}</td>
+                    <td class="p-3 text-slate-700">${tx.items}</td>
+                    <td class="p-3 font-bold text-slate-800">Rp ${tx.total.toLocaleString('id-ID')}</td>
+                    <td class="p-3 text-slate-600">Rp ${tx.cash.toLocaleString('id-ID')}</td>
+                    <td class="p-3 text-slate-600">Rp ${tx.change.toLocaleString('id-ID')}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Online Customer Form Calculations
+        let onlineTotal = 0;
+        function calculateOnlineTotal() {
+            const dada = parseInt(document.getElementById('qty-dada').value) || 0;
+            const paha = parseInt(document.getElementById('qty-paha').value) || 0;
+            const sayap = parseInt(document.getElementById('qty-sayap').value) || 0;
+            const esteh = parseInt(document.getElementById('qty-esteh').value) || 0;
+
+            onlineTotal = (dada * 15000) + (paha * 14000) + (sayap * 12000) + (esteh * 5000);
+            document.getElementById('online-total').innerText = `Rp ${onlineTotal.toLocaleString('id-ID')}`;
+        }
+
+        // Process Online Checkout (Generates database entry & WhatsApp Link)
+        function processOnlineCheckout() {
+            const name = document.getElementById('cust-name').value;
+            const wa = document.getElementById('cust-wa').value;
+            const address = document.getElementById('cust-address').value;
+
+            const dada = parseInt(document.getElementById('qty-dada').value) || 0;
+            const paha = parseInt(document.getElementById('qty-paha').value) || 0;
+            const sayap = parseInt(document.getElementById('qty-sayap').value) || 0;
+            const esteh = parseInt(document.getElementById('qty-esteh').value) || 0;
+
+            if (onlineTotal === 0) {
+                alert("Silakan pilih minimal 1 menu makanan!");
+                return;
+            }
+            if (!name || !wa || !address) {
+                alert("Harap lengkapi formulir pengantaran!");
+                return;
+            }
+
+            // Database Simulation (Generate Unique ID)
+            const orderID = 'MFC-ON-' + Math.floor(1000 + Math.random() * 9000);
+            
+            // Format WhatsApp Message
+            let orderList = [];
+            if (dada > 0) orderList.push(`- Dada Crispy x ${dada}`);
+            if (paha > 0) orderList.push(`- Paha Atas Crispy x ${paha}`);
+            if (sayap > 0) orderList.push(`- Sayap Crispy x ${sayap}`);
+            if (esteh > 0) orderList.push(`- Es Teh Manis x ${esteh}`);
+
+            const message = `Halo MFC Petung, saya ingin memesan menu secara Online!\n\n*ID Pesanan:* ${orderID}\n*Nama Pelanggan:* ${name}\n*No. WA:* ${wa}\n*Alamat Pengiriman:* ${address}\n\n*Rincian Pesanan:*\n${orderList.join('\n')}\n\n*Total Pembayaran:* Rp ${onlineTotal.toLocaleString('id-ID')}\n\nMohon konfirmasi pesanannya ya Mas. Terima Kasih!`;
+            
+            // Build WA URL (Pre-fill with MFC actual/mock WA number)
+            const targetPhone = "6282154321098"; // Gantilah dengan No WA Official MFC Petung jika diperlukan
+            const waURL = `https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`;
+
+            // Populate Modal Fields
+            document.getElementById('rec-code').innerText = orderID;
+            document.getElementById('rec-name').innerText = name;
+            document.getElementById('rec-addr').innerText = address;
+            document.getElementById('whatsapp-preview-text').innerText = message;
+            document.getElementById('btn-wa-redirect').href = waURL;
+
+            // Show Modal
+            document.getElementById('receipt-modal').classList.remove('hidden');
+            
+            // Scroll to Modal
+            document.getElementById('receipt-modal').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
