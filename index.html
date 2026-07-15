@@ -480,7 +480,7 @@
             const message = `Halo MFC Petung, saya ingin memesan menu secara Online!\n\n*ID Pesanan:* ${orderID}\n*Nama Pelanggan:* ${name}\n*No. WA:* ${wa}\n*Alamat Pengiriman:* ${address}\n\n*Rincian Pesanan:*\n${orderList.join('\n')}\n\n*Total Pembayaran:* Rp ${onlineTotal.toLocaleString('id-ID')}\n\nMohon konfirmasi pesanannya ya Mas. Terima Kasih!`;
             
             // Build WA URL (Pre-fill with MFC actual/mock WA number)
-            const targetPhone = "081385741556"; // Gantilah dengan No WA Official MFC Petung jika diperlukan
+            const targetPhone = "62895700731794"; // Gantilah dengan No WA Official MFC Petung jika diperlukan
             const waURL = `https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`;
 
             // Populate Modal Fields
